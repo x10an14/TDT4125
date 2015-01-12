@@ -1,0 +1,149 @@
+Blir Cormen, muligens fjorårets gratis lærebok.
+	Ikke bare approksimeringsalgoritmer som fjorårets lærebok fokuserer sterkt
+	på.
+
+Øvingsopplegg:
+	5 øvinger
+	Fokus på energieffektivitet (poengscoring) i tillegg til fokus/poeng for tid
+	Frivillige (ikke obligatoriske)
+
+NP-komplette problemer:
+	Det er en klasse problemer hvor "ja" instansene kan løses innen
+	polynomisk-deterministisk tid, men ikke "nei" instansene.
+
+	En annen måte å se det på er at vi kan verifisere alle "ja svar"
+	(f.eks. en Hamilton sykel), hvis svaret er "nei", er det ikke like så godt
+	å si.
+
+	Inneholder antageligvis mendgen problemer som kan løses i
+	polynomisk-deterministisk tid, og om NP \ne P, så inneholder NP minst en del
+	av settet NPC (NP-Complete) problemer.
+
+	NPC er også delvis dekket av settet NPH (NP-Hard).
+
+Løsninger av NP, NPC, og NPH problemer:
+	"Reduserer fra A til B" m/ formelen $A {\leq}_p B$.
+	B kan da gjerne være NPH, og A være NP?
+
+	Et optimeringsproblem er minst like vanskelig som et beslutningsproblem.
+	Man kan bevege seg ganske fritt mellom disse to. Beslutningsvarianten av
+	TSP er NPC. Det er som oftest det er optimering det er snakk om uansett.
+
+	De fleste problemer i verden er antageligvis ikke i P, mange problemer som
+	værre en NPH.
+
+	Heuristikk (branch & bound?) kan brukes, bygger opp løsning gradvis med en
+	og en variabel, "kan ikke bli bedre enn det her", "kan ikke bli værre enn
+	det der".
+
+	Heltallsprogrammer er NPH å løse.
+
+Det vi skal prøve på nå:
+	"Finne nesten optimale tilfeller", slacker litt på kravet om optimalitet,
+	men krever polynomisk kjøretid.
+
+Optimaliseringsproblemer:
+	Positiv kostnad: C, C*
+		Verdien til det vi optimerer (maksimering/minimering)
+	Prosentavvik på disse problemer kan plutselig bli veldig villedende.
+	Approksimeringsratio $\rho(n)$, en grense/bound på at approksimeringen "ikke
+	blir verre enn det her"
+	$\rho(n) \leq max{C/C*, C*/C}$.
+	Om funksjonen er uavh. av $n$, skriver bare $\rho$.
+
+	Appx-scheme:
+		Ekstra parameter:
+		\epsilon - relativ feil. AKA "hvor mye over 1" (i cormen) "er \rho".
+		For gitt \epsilon: $\rho = 1+\epsilon$
+
+		Kjøretid:
+		Polynomial Time Approximation Scheme (PTAS); polynomisk for en gitt
+		\epsilon > 0. Om \epsilon == 0 får vi ofte trøbbel.
+		Kjøretiden varierer veldig drastisk, men jo mer nøyaktige vi ønsker å
+		approksimere, jo tregere går det.
+
+		Eks: $\theta(n^(2/\epsilon))$
+
+		Fully PTAS (FPTAS):
+		Også polynomisk som funksjon av $1/\epsilon$.
+
+		Eks: $\theta ((1/\epsilon)^2 n^3)$
+
+		Hvis vi reduserer \epsilon med en konstant faktor, så øker vi kjøretiden
+		tilsvarende avh. potensen til \epsilon i \theta.
+
+Algoritmer vi skal se på:
+	Det finnes 5 approksimeringsalgoritmer, og 1 FPTAS.
+	Kanskje en eller to forelesninger til på dette.
+
+	Skal høre om Vertex cover, TSP, hver med \rho == 2.
+
+	Grådig algoritme for set-cover (1+log(n)).
+
+	Bevis ang. \rho (?).
+
+	Max 3 satisfiability problemet algoritme m/\rho == 8/7.
+
+	FPTAS for subsetsum.
+
+Vertex cover:
+	"Finnes det et cover med størrelse k?"
+
+	Hva med en grådig algoritme hvor hvert "vertex cover" konkurrerer med de
+	andre, hvor du kan finne flere i parallel(?)
+
+	Algoritme som diskuteres på tavla:
+		Fra boka (s. 1025):
+
+		Du velger tilfeldige kanter, og tar begge nodene som kanten dekker.
+		Deretter fjerner du alle andre kanter tilkoblet nodene som kanten er
+		strukket imellom. Sånn fortsetter du til det ikke er flere kanter igjen.
+		Dette er en "2-optimal" (1<\rho\leq 2).
+
+		Tilfeldig valgt løsning: b, c, d, e, f, g.
+
+		Optimal løsning: b,d,e.
+
+		A: valgte kanter -> for å dekke kanten (u,v) i mengden A, må C*
+		inneholde u eller v, eller begge. Alle kantene i A må dekkes av optimum.
+			Ingen kanter i A deler noder.
+
+			Når man bruker en algoritme som velger cover basert på kanter, må
+			man ha minst like mange kanter som noder i optimum løsning av graf
+			A.
+
+			|C*| \geq |A| .
+
+			|C| = 2|A|_{antall kanter} \leq 2|C*| => \rho = 2
+
+	oppgave 35.11 fra boka(?)
+
+	Maksimal matching(?):
+		En graf der ingen av nodene deler kanter. Svaret er et subset av kanter
+		i en graf.
+
+		En maksimal matching, 2 kanter måtte delt node?
+
+Travelings Salesman Problem (TSP):
+	c(u,w) \leq c(u,v) + c(u,w) -> Metrisk TSP (MTSP)
+
+	Må gjøre en reduksjon.
+
+	Reduser fra TSP (eller annet NPH problem) MTSP.
+	Notasjon: TSP {\leq}_p MTSP
+
+	En løsning på TSP vil alltid ha v kanter (om graf G(v,n) har v kanter og n
+	noder).
+
+	Hva er en mulig nedre grense for en løsning på TSP:
+		0.
+		minste kanten
+		summen av de n minste kantene
+		summen av de n minste kantene som er et minimalt spanning tree (MST)
+
+	En løsning(?) som diskuteres på tavlen for en komplett graf som er en
+	korrekt løsning: pre-order traversering av et minimalt spenntre, som gir en
+	2-order optimalisering av et MTSP.
+
+Kapittel 35 vi holder på med nå i Cormen. Skal ihvertfall brukes neste gang,
+kanskje neste gang etter det også.
