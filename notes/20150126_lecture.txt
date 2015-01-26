@@ -1,0 +1,138 @@
+Tredje forelesning om approksimering.
+	Bredere område enn eksakte algoritmer vi har lært om tidligere
+	Vært borti noen måter å konstruere ting på
+	Måter å garantere/konstruere ting på
+
+Set covering problemet
+	Approksimeringsproblemet er logaritmisk, med mindre P=NP
+	Det beste man kan få til er logaritmisk, men det er noen
+småkonstantforskjeller fra det ideelle.
+
+	Vertex cover dekker alle nodene i grafen.
+	Set cover er en generalisering av dette.
+		Set cover skal velge så få delmengder av grafen som mulig, sålangt hele
+grafen er dekket.(Dekke "cover" grafen med delmengder "sets").
+		Bruker en grådig algoritme for å løse dette, men må bare vise
+approksimeringsgraden til algoritmen, ikke korrektheten som er vanlig å vise med
+nøyaktige algoritmer.
+		Spørsmålet er: Hvor bra blir dette her svaret?
+
+Set covering bevis:
+	H_d = Harmonisk tall = H(d) = 1/d + ... + 1/1
+	H(0) = 0
+
+	\rho(n) = max_{av S i F} H(|S|)
+
+	S_i = delmengde i, i rekkefølge.
+
+	Hver delmengde har kostnad 1 (vektet set cover er ikke bevist i Cormen).
+
+	Kostnad for S_i = 1, fordel på element x i S_i som dekkes for første gang
+C_x (kostnad for element x) = 1 /
+	(|S_i| - (\ - delmengde minus operator?) (S_1 union S_2 union ... S_i))
+
+	|C| = Summen av antall elementers kostnad i groundsettet X. == II
+
+	\Sum_of C^x \Sum_x in S C_x \geq (\Sum_x in X C_x == II)
+	(For hvert delmengde i den optimale løsningen summer alle løsningene) \geq
+		(Optimale løsningen hvor alle elementene telles minst en gang)
+
+	|C| \leq \Sum_of C^x \Sum_x in S C_x
+
+	\sum x in S C_x \leq H(|S|)
+		Hvis ingen av mengdene overlapper, vil hver delmengde ha sin sum lik
+		antall elementer. Om de overlapper, vil summen bli litt lavere, fordi
+		elementer som dekkes av flere delmengder har sin verdi like 1/antall
+		delmengder.
+
+	(\Sum_x in S C_x kan vise hvilken faktor unna optimum vi er)
+
+	|C| \leq \Sum_S in C^* H(|S|)
+	|C| \leq |C*| \mult max_S in F H(|S|)
+
+	Kostnadene til elementene er C_x øker, fordi elementene vi velger blir
+	fordelt på færre og færre elementer.
+
+	En forvirrende statement i beviset:
+	{Anta C_x \geq 1/K -> er udekket i det vi faller under k eller færre dekkede
+	elementer i innebærende iterasjon av nåværende delmengde. (x in S)
+
+	Delmengden S kan ha max K slike (se over), siden S ikke ble valgt før.
+	} Kjernen i resonnementet(?)
+
+	Sorter elementene i S synkende; a_1, a_2, ..., a_|S|
+
+	Har maks i-1 stykk elementer med kostnad \geq 1/(i-1) =>
+	(a_i \leq 1/i) / (\Sum_x in S C_x = a_1 + a_2 + ... + a_|S|
+		\leq 1+1/2 + ... + 1/|S|)
+
+Forventningsverdier er nyttig.
+	De oppfører seg lineært!
+
+	Hvis du kan regne ut forventingsverdien til en algoritme bsert på et sett
+med tilfeldige valg, og kan regne ut forventnningsverdien på det som gjenstår.
+Hvis du har valgt tilfeldig, er det mulig å lage en deterministisk algoritme som
+ikke velger ut element å regne ut forventningsverdi på tilfeldig. (Ikke likt
+heuristikken til Simulated Annealing som også er tilfeldig)
+
+Max - 3CNF - SAT
+	Antar ikke både x og ikke x i samme term(/clause/parantes)
+	T_i = term nr. i er sann.
+	Y_i = I{T_i}, om T == sann => Y == 1, ellers er Y == 0
+	P(T_i) = 1 - (1/2)^3 = 7/8
+	E[Y_i] = 7/8 (E[Y_i] == forventningsverdien til term i)
+
+	Y = Y_1 + Y_2 + ... + Y_m
+	C = E[Y] = E[\Sum_i Y_i]
+	C = \Sum_i E[Y_i]
+	C = \Sum_i 7/8
+	C = 7m/8
+
+	C* (optimale forventningsverdien) \leq m
+	\rho = m/(7m/8) = 8/7
+
+	Dropper på dette tidspunktet antagelsen om at vi ikke har x og ikke-x i
+	samme term, da får vi følgende:
+
+	P(T_i) \geq 1-(1/2)^3
+
+	(Hurra for forventningsverdier)
+
+Lineærprogrammering:
+	- linear objective
+	- linear constraints
+	(krav: rasjonale tall)
+	(M (mu?)) Integer Programming:
+		- Heltallskrav
+
+Relaxation -> "minst like bra løsning":
+		Starter med et område, heltallsløsninger
+		Så tillater vi også flyttallsløsninger (Færre krav)
+		Løsninger bevarer verdi
+
+Hva gjør vi så?
+	1. Sette opp IP
+	2. LP-relaxation
+		(ulovlig, superoptimal)
+	3. Avrunding
+
+Min-weight Vertex Cover (LP relaxation):
+	(Antar at ingen vekter er negative)
+	Formulerer det først som en Mixed Integer Program ((M)IP)
+
+	minimer Z = \Sum v in V W_v \times X_v, such that
+	X_u + X_0 \geq 1, 		(u, v) in E
+	X_v = [0,1], 			v in V (stryk dette, og bruk relaxation)
+	0 \leq X_v \leq 1, 		v in V
+
+	X_u + X_v \geq |, X_u \geq 1/2 || X_v \geq |
+
+	Optimum = Z* = \Sum_v in V (W_v)(X_v)
+	Z* \geq \Sum_v in V (W_v)(X_v), 	X_v \geq 1/2
+	Z* = \Sum_v in V (X_v \geq 1/2) (W_v)*1/2
+	Z* = 1/2* W(C)
+
+	W(C) \leq 2 Z* \leq 2W(C*)
+
+
+Neste gang blir det matroideteori (grådighet og matroider).
