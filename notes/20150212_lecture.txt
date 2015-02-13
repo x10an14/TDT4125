@@ -1,0 +1,97 @@
+Bruker grådighet på matrioider for å bevise korrekthet for grådige algoritmer.
+
+Matroide:
+	Set system
+	(S, II)
+	II delmengde av 2^S
+
+	Greedoid er en generalisering av matroider.
+
+	II == lovlige løsninger og lovlige delløsninger.
+	Bygger man spenntrær, så er II mengden av kanter uten sykler.
+
+	Hereditary set system? "Simplicial complex"?
+
+	Det som skiller en matroide fra en uavhengighetssystem er en såkalt
+"exchange property"
+
+	Exch. prop:
+		To elementer, en liten og en stor, kan de byttes ut?
+		Har du to asykliske samlinger med kanter fra en og samme graf, kan være
+overlappende, hvor en samling har flere kanter enn den andre, så kan du alltid
+legge til en kant fra største delmengde til minste uten å lage sykler. (dette er
+exchange property).
+
+Fra sist:
+
+M' består av S' og II'
+	S' = {y in set S: {x,y} in set II}
+	II' == {B delmengde av S - {x}: B union {x} in set II}
+	Poenget er at vi allerede har valgt X, det tyngste lovlige elementet
+(tyngste kanten), S' er groundsettet. Vi vil også fjerne alle andre elementer y
+som ikke kan finnes i noen løsning der x er med.
+
+	x in set A in set II
+	A' = A-{x}
+	w(A)=w(A')+w(x)
+
+	Og sånn til ende med flere og flere A'', S'' og II'', så har vi bevist til
+ende at grådigheten er korrekt.
+
+Vise at ting er matroider: (?)
+	Planlegging av jobber, med kostnader og deadlines per jobb.
+	Vi kan alltid liste de lovlige jobbene sortert etter deadline.
+
+	Eksempel på tavlen:
+		k					k+1
+		a_i					a_j
+		d_i			>		d_j
+	d_j \leq k+1
+	d_i > d_j \geq k+1
+
+	Etterpå: d_i \geq k+1
+
+	t = 0, 1, 2, ...
+	Antall som elementer som har deadline innen eller tidligere enn tid t:
+	N_t(A), N_0(A)=0.
+
+	Lem. 16.12:
+	(1). A in set II
+	(2). for t = 0, 1, ..., n:
+		N_t(A) \leq t
+	(3). A sortert (økende?) etter deadline => ingen forsinkelser.
+
+	Boka beviser equivalens mellom 1-3 ved å implisere den ene inn i den andre, til de har en sykel 1->2->3->1.
+
+	(1)->(2)
+	ikke (2) > ikke (1)
+		N_t(A) > t => beviser pil: (1)->(2)
+		Gikk igjennom de andre muntlig og altfor kjapt for notater...
+
+Bevis for at vi kan bruke grådig algoritme at det er en matroide:
+	|B| > |A|
+	k = max t, slik at N_t(B) \leq N_t(A)
+
+	N_n(B) = |B|
+	N_n(A) = |A|
+
+	k < n
+
+	N_j(B) > N_j(A), iff k+1 \leq j \leq n
+		B har flere tasks innenfor deadline j enn det A har.
+
+	A' = A union {a_i}, om a_i f.eks. er en av disse taskene B har men ikke A
+har før deadline j.
+
+	N_t(A') = N_t(A) \leq t
+		0 \leq t \leq k
+
+	k < t \leq n:
+		N_t(A') \leq N_t(B) \leq t
+
+Trådbasert paralelle algoritmer:
+	Se side 728 i boka...
+
+Slackness:
+	(Fra lineær programmering?)
+	(T_1/T_\infty) / P
