@@ -1,0 +1,11 @@
+Approksimeringsalgoritmer: http://www.designofapproxalgs.com/download.php
+
+Kapitler i Cormen:
+5
+16.4 - 16.5
+17
+27.1 - 27.3
+29
+33
+34
+35
