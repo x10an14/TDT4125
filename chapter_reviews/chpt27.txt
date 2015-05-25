@@ -10,4 +10,28 @@ Multithreaded algorithms
 		T_1/T_P = P
 	T_1/T_\infty = Parallelism of an algorithm/threaded computation
 
-	(parallell) slackness = (T_1/T_\infty)/P = T_1/(P*T_\infty)
+	(parallel) slackness = (T_1/T_\infty)/P = T_1/(P*T_\infty)
+
+	work = The total time it takes to execute multithreaded (parallel)
+		computation on one processor.
+	span = The "critical path" of the multithreaded computation/algorithm. (The
+		number of vertices on a longest path in the computational DAG).
+	strand = sequential (not parallel) sequence of commands/operations
+
+	Determinacy race = race condition => implies nondeterministic algorithm
+
+	Scheduling:
+		Complete step = If at least P strands are ready to execute on P
+available processors / threads / agents / workers.
+		Incomplete step = ! complete step
+
+27.2 Multithreaded matrix multiplication:
+	Divide and conquer:
+		For matrix-vector multiplication, matrix-matrix multiplication, and
+
+27.3 Multithreaded merge sort:
+	Lots of talk and discussion about parallelizing merge sort. Both the
+self-recursive splitting of the algorithm, and the merging get parallelized.
+	Used for analyzing parallel algorithmic complexity:
+		"Condition of Exercise 4.6-2" => ?
+		Master theorem

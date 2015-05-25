@@ -1,0 +1,13 @@
+Approksimeringsalgoritmer: http://www.designofapproxalgs.com/download.php
+
++ Alle forelesninger og foiler
+
++ Kapitler i Cormen:
+	5
+	16.4 - 16.5
+	17
+	27.1 - 27.3
+	29
+	33
+	34
+	35
