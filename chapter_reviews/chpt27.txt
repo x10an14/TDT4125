@@ -1,0 +1,13 @@
+Multithreaded algorithms
+
+27.1:
+	Work law: T_P \geq T_1/P
+	Span law: T_P \geq T_\infty
+
+	linear speedup:
+		T_1/T_P = theta(P)
+	perfect linear speedup:
+		T_1/T_P = P
+	T_1/T_\infty = Parallelism of an algorithm/threaded computation
+
+	(parallell) slackness = (T_1/T_\infty)/P = T_1/(P*T_\infty)

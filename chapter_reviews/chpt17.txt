@@ -1,0 +1,15 @@
+Amortized cost
+
+17.1:
+	Aggregate analysis (=O(N)/N)
+
+17.2:
+	The accounting method (Tallerkner med sedler oppå for å legge til/fjerne)
+
+17.3:
+	The potential method (Hele systemet må "ha nok i reserve" for å kunne betale
+for enhver handlings kostnad)
+
+17.4:
+	Eksempel med dynamic table av de foregående.
+

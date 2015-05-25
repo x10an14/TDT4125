@@ -1,0 +1,10 @@
+*16.4:
+	Definition of Matroid
+	Matroid M = ordered pair of (S, I)
+		S is a finite set
+		S is the set of all elements in the Matroid
+		I is
+
+	Lemmaer som må læres:
+		16.7
+		16.10
