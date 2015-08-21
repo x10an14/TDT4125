@@ -34,4 +34,3 @@ Probabilistic Analysis and Randomized Algorithms
 5.4
 	Masse oppgaver med statistikk...
 	A.7 er mye brukt i oppgavene. Lære seg denne utenat?
-

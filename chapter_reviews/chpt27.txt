@@ -20,7 +20,7 @@ Multithreaded algorithms
 
 	Determinacy race = race condition => implies nondeterministic algorithm
 
-	Scheduling:
+	Greedy Scheduling:
 		Complete step = If at least P strands are ready to execute on P
 available processors / threads / agents / workers.
 		Incomplete step = ! complete step
